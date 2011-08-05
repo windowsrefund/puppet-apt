@@ -12,7 +12,27 @@ Puppet::Type.type(:apt_mirror).provide(
   text_line :comment, :match => /^#/
   text_line :blank, :match => /^\s*$/
 
-  record_line :parsed, :fields => %w{deb uri sections}
+  record_line :parsed, 
+		:fields => %w{name uri}
+		#:match  => /^(\S+) (\S+)$/
+
+	def dir_perm
+		0700
+	end
+
+	def file_perm
+		0644
+	end
+
+	#def flush
+	#	unless File.exist?(dir = File.dirname(target))
+	#		Puppet.debug "Creating #{dir}"
+	#		Dir.mkdir(dir, dir_perm)
+	#	end
+
+	#	File.chmod(file_perm, target)
+
+	#end
 
 end
 

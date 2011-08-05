@@ -1,1 +1,8 @@
-# See the apt::mirror definition for now.
+# Usage example: apt::mirror { i386: }
+#
+# This will result in the following:
+#
+# deb-i386 http://mirror.rit.edu/debian squeeze main contrib
+#
+# TODO
+# Integrate a web server so we can serve up the mirror. I doubt I'll do this now that I've decided to move to apt-cacher-ng...

@@ -7,19 +7,16 @@ Puppet::Type.newtype(:apt_mirror) do
   ensurable 
 
   newparam(:name) do
-    desc "The apt repo to mirror."
-    isnamevar
+    desc "The architecture to mirror."
+      #newvalues("i386","i686","amd64","ia64","powerpc","hppa") 
+			isnamevar
   end
 
-  newproperty(:arch) do
-    desc "The architecture to mirror. If this is nil, all architectures will be mirrored."
-      newvalues("i386","i686","amd64","ia64","powerpc","hppa") 
-  end
-
-  newproperty(:deb) do
-    desc "If arch is nil, this should return 'deb'. Otherwise, return 'deb-$arch'"
-    defaultto { @resource.value(:arch).nil? ? "deb" : "deb-#{@resource.value(:arch)}" }
-  end
+  #newproperty(:deb) do
+	#	munge |value| do
+	#		"deb" + name
+	#	end
+  #end
 
   newproperty(:target) do
     desc "Location of the mirrors.list file."

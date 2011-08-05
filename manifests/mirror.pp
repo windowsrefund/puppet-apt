@@ -16,7 +16,6 @@ define apt::mirror(
 $ensure = 'present',
 $uri = 'http://mirror.rit.edu/debian', 
 $sections = [ 'squeeze', 'main', 'contrib' ],
-$arch = undef
 ) 
 {
 
@@ -27,7 +26,6 @@ $arch = undef
     ensure => $ensure, 
     uri => $uri,
     sections => $sections,
-    arch => $arch,
   }
 
 #cd /path/to/binary
