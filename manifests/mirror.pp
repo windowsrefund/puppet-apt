@@ -1,21 +1,9 @@
-# Usage example: apt::mirror { something: }
-#
-# This will result in the following:
-#
-# deb http://mirror.rit.edu/debian squeeze main contrib
-#
-# If we want only i386 packages, we do this:
-#
-# apt::mirror { something: arch => 'i386' }
-#
-# This results in the following configuration:
-#
-# deb-i386 http://mirror.rit.edu/debian squeeze main contrib
-#
 define apt::mirror(
 $ensure = 'present',
 $uri = 'http://mirror.rit.edu/debian', 
 $sections = [ 'squeeze', 'main', 'contrib' ],
+$cron_hour = '4',
+$cron_minute = '0'
 ) 
 {
 
@@ -28,8 +16,13 @@ $sections = [ 'squeeze', 'main', 'contrib' ],
     sections => $sections,
   }
 
-#cd /path/to/binary
-#dpkg-scanpackages binary /dev/null | gzip -9c > binary/Packages.gz
-#dpkg-scansources source /dev/null | gzip -9c > source/Sources.gz
+  cron { apt-mirror:
+    ensure => $ensure,
+    command => '/usr/bin/apt-mirror > /var/spool/apt-mirror/var/cron.log',
+    hour => $cron_hour,
+    minute => $cron_minute
+  }
+
+  # use our nginx module here...
 
 }
