@@ -8,7 +8,7 @@ $cron_minute = '0'
 {
 
   include packages
-	Package <| title == apt-mirror |>
+  Package <| title == apt-mirror |>
 
   apt_mirror { $name: 
     ensure => $ensure, 
